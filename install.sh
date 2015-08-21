@@ -22,7 +22,7 @@ docmd() {
 
 VERSION="1.0.0"
 
-EXECUTABLES="set_difference set_intersection set_union"
+EXECUTABLES="set_difference set_intersection set_union iset_difference iset_intersection iset_union"
 LIB="libsetutils.so.1.0.0"
 LIB_ALIAS_MAJOR="libsetutils.so.1"
 LIB_ALIAS="libsetutils.so"
