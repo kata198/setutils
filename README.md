@@ -20,6 +20,8 @@ Files provided to the set\_\* commands designate an element as the contents of a
 Is a set of three elements: [ "one", "two", "three" ]
 
 
+The following commands have an "iset\_\*" version (e.x. iset\_difference) which it optimized for integers. Use those if you know your data is all integers. For all other types, use the plain set\_\* commands.
+
 set\_difference
 ---------------
 

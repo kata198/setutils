@@ -8,14 +8,14 @@
 
 void usage(void)
 {
-    fprintf(stderr, "Usage: set_difference [fileA] [fileB] (optional: fileC...)\n  Prints unique elements present in only fileA.\nA - B (- C...)\n");
+    fprintf(stderr, "Usage: iset_difference [fileA] [fileB] (optional: fileC...)\n  Prints unique elements present in only fileA.\n All elements must be integers. For other types, use set_difference\n  A - B (- C...)\n");
 }
 
 
 int main(int argc, char* argv[])
 {
-    char **values;
-    unsigned int i;
+    int *values;
+    unsigned int i, numValues;
     Set *setA;
     Set **otherSets;
     unsigned int numOtherSets = argc-2;
@@ -36,22 +36,22 @@ int main(int argc, char* argv[])
 
     otherSets = malloc(sizeof(Set*) * numOtherSets);
 
-    setA = file_to_str_set(argv[1]);
+    setA = file_to_int_set(argv[1]);
     if(!setA)
         return 127;
     for(i=0; i < numOtherSets; i++)
     {
-        otherSets[i] = file_to_str_set(argv[i+2]);
+        otherSets[i] = file_to_int_set(argv[i+2]);
         if(!otherSets[i])
             return 127;
     }
 
-    Set *difference = str_set_difference_multi(setA, otherSets, numOtherSets);
+    Set *difference = int_set_difference_multi(setA, otherSets, numOtherSets);
 
-    values = str_set_values(difference, NULL);
-    for(i=0; values[i] != NULL; i++)
+    values = int_set_values(difference, &numValues);
+    for(i=0; i < numValues; i++)
     {
-        printf("%s\n", values[i]);
+        printf("%d\n", values[i]);
     }
 
     return 0;

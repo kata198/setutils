@@ -9,15 +9,16 @@
 
 void usage(void)
 {
-    fprintf(stderr, "Usage: set_union [fileA] [fileB] (fileC...)\n  Prints the union of all sets.\n A U B (U C...)\n\n");
+    fprintf(stderr, "Usage: iset_union [fileA] [fileB] (fileC...)\n  Prints the union of all sets.\n All elements must be integers. For strings, use set_union.\n  A U B (U C...)\n\n");
 }
 
 int main(int argc, char* argv[])
 {
-    char **values;
+    int *values;
     unsigned int i;
     Set **sets;
     unsigned int numSets = argc-1;
+    unsigned int numValues;
 
     if(argc < 3)
     {
@@ -37,19 +38,23 @@ int main(int argc, char* argv[])
 
     for(i=0; i < numSets; i++)
     {
-        sets[i] = file_to_str_set(argv[i+1]);
+        sets[i] = file_to_int_set(argv[i+1]);
         if(!sets[i])
             return 127;
     }
         
-    Set *sunion = str_set_union_all(sets, numSets);
+    Set *sunion = int_set_union_all(sets, numSets);
 
-    values = str_set_values(sunion, NULL);
-    for(i=0; values[i] != NULL; i++)
+    for(i=0; i < numSets; i++)
+        destroy_set(sets[i]);
+
+    values = int_set_values(sunion, &numValues);
+    for(i=0; i < numValues; i++)
     {
-        printf("%s\n", values[i]);
-        free(values[i]);
+        printf("%d\n", values[i]);
     }
+    free(values);
+    destroy_set(sunion);
 
     return 0;
 }

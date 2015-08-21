@@ -34,19 +34,19 @@ int main(int argc, char* argv[])
 
 	otherSets = malloc(sizeof(Set*) * numOtherSets);
 
-	setA = filename_to_set(argv[1]);
+	setA = file_to_str_set(argv[1]);
 	if(!setA)
 		return 127;
 	for(i=0; i < numOtherSets; i++)
 	{
-		otherSets[i] = filename_to_set(argv[i+2]);
+		otherSets[i] = file_to_str_set(argv[i+2]);
 		if(!otherSets[i])
 			return 127;
 	}
 
 	Set *intersection = str_set_intersection_multi(setA, otherSets, numOtherSets);
 
-	values = str_set_values(intersection);
+	values = str_set_values(intersection, NULL);
 	for(i=0; values[i] != NULL; i++)
 	{
 		printf("%s\n", values[i]);
