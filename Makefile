@@ -1,8 +1,8 @@
 
 CC?=gcc
 INCLUDE_FLAGS=`pkg-config glib-2.0 --cflags`
-USECFLAGS=${INCLUDE_FLAGS} -Wall -ggdb3 -fPIC ${CFLAGS}
-LDFLAGS=-lglib-2.0 -O1 -fPIC
+USECFLAGS=${INCLUDE_FLAGS} -Wall -fPIC -O3 -std=gnu99 -pedantic ${CFLAGS}
+USELDFLAGS=-lglib-2.0 -Wl,-O1 -fPIC -s ${LDFLAGS}
 
 EXECUTABLES=set_intersection \
   iset_intersection \
@@ -24,25 +24,25 @@ install: ${EXECUTABLES}
 recompile: clean all
 
 ${LIB}: ${LIB_OBJECTS}
-	gcc -shared ${LIB_OBJECTS} ${LDFLAGS} -o ${LIB}
+	gcc -shared ${LIB_OBJECTS} ${USELDFLAGS} -o ${LIB}
 
 set_intersection: set_intersection.o ${LIB_OBJECTS}
-	gcc set_intersection.o ${LIB_OBJECTS} ${LDFLAGS} -o set_intersection
+	gcc set_intersection.o ${LIB_OBJECTS} ${USELDFLAGS} -o set_intersection
 
 iset_intersection: iset_intersection.o ${LIB_OBJECTS}
-	gcc iset_intersection.o ${LIB_OBJECTS} ${LDFLAGS} -o iset_intersection
+	gcc iset_intersection.o ${LIB_OBJECTS} ${USELDFLAGS} -o iset_intersection
 
 set_union: set_union.o ${LIB_OBJECTS}
-	gcc set_union.o ${LIB_OBJECTS} ${LDFLAGS} -o set_union
+	gcc set_union.o ${LIB_OBJECTS} ${USELDFLAGS} -o set_union
 
 iset_union: iset_union.o ${LIB_OBJECTS}
-	gcc iset_union.o ${LIB_OBJECTS} ${LDFLAGS} -o iset_union
+	gcc iset_union.o ${LIB_OBJECTS} ${USELDFLAGS} -o iset_union
 
 set_difference: set_difference.o set.o str_set.o
-	gcc set_difference.o ${LIB_OBJECTS} ${LDFLAGS} -o set_difference
+	gcc set_difference.o ${LIB_OBJECTS} ${USELDFLAGS} -o set_difference
 
 iset_difference: iset_difference.o set.o int_set.o
-	gcc iset_difference.o ${LIB_OBJECTS} ${LDFLAGS} -o iset_difference
+	gcc iset_difference.o ${LIB_OBJECTS} ${USELDFLAGS} -o iset_difference
 
 clean:
 	rm -f ${EXECUTABLES} ${LIB} *.o
