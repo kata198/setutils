@@ -38,10 +38,10 @@ set_union: set_union.o ${LIB_OBJECTS}
 iset_union: iset_union.o ${LIB_OBJECTS}
 	gcc iset_union.o ${LIB_OBJECTS} ${USELDFLAGS} -o iset_union
 
-set_difference: set_difference.o set.o str_set.o
+set_difference: set_difference.o set.o str_set.o ${LIB_OBJECTS}
 	gcc set_difference.o ${LIB_OBJECTS} ${USELDFLAGS} -o set_difference
 
-iset_difference: iset_difference.o set.o int_set.o
+iset_difference: iset_difference.o set.o int_set.o ${LIB_OBJECTS}
 	gcc iset_difference.o ${LIB_OBJECTS} ${USELDFLAGS} -o iset_difference
 
 clean:
@@ -56,9 +56,6 @@ str_set.o: str_set.c set.h
 int_set.o: int_set.c set.h
 	gcc int_set.c -c -o int_set.o ${USECFLAGS}
 
-
-main.o: main.c
-	gcc main.c -c -o main.o ${USECFLAGS}
 
 set_intersection.o: set_intersection.c
 	gcc set_intersection.c -c -o set_intersection.o ${USECFLAGS}
