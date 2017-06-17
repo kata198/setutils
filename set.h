@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2015 - 2017 Timothy Savannah All Rights Reserved
+ *   Licensed under terms of LGPLv3
+*/
 
 #ifndef _SET_H
 #define _SET_H
