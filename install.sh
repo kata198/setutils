@@ -68,7 +68,7 @@ docmd install -t "$DESTDIR/bin" $EXECUTABLES || die "Failed to install executabl
 
 docmd install -t "$DESTDIR/lib" $LIB || die "Failed to install libraries to $DESTDIR/lib"
 
-pushd $DESTDIR/bin >/dev/null 2>&1
+pushd $DESTDIR/lib >/dev/null 2>&1
 docmd ln -sf $LIB $LIB_ALIAS_MAJOR
 docmd ln -sf $LIB $LIB_ALIAS
 popd >/dev/null 2>&1
